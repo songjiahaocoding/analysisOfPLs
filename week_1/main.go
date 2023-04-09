@@ -76,9 +76,9 @@ func main() {
 	findBiggest(25, pq)
 
 	sort.Sort(pq)
-	for _, item := range pq.cnts {
-		fmt.Printf("%s %d\n", item.word, item.count)
-	}
+	//for _, item := range pq.cnts {
+	//	fmt.Printf("%s %d\n", item.word, item.count)
+	//}
 	f, _ := os.Create(words_file)
 	defer f.Close()
 	for i := 0; i < 25; i++ {
@@ -106,8 +106,7 @@ func findBiggest(num int, pq *PriorityQueue) {
 }
 
 func buildFrequency() {
-
-	file, _ := ioutil.ReadFile(path.Join(AppPath, words_file))
+	file, _ := ioutil.ReadFile(AppPath)
 
 	reg := regexp.MustCompile("[a-z]{2,}")
 	words := reg.FindAllString(strings.ToLower(string(file)), -1)
@@ -120,7 +119,7 @@ func buildFrequency() {
 }
 
 func initStopMap() {
-	file, err := os.Open(path.Join(AppPath, stop_file))
+	file, err := os.Open(path.Join("../", stop_file))
 	if err != nil {
 		fmt.Println(err)
 	}
