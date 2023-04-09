@@ -3,9 +3,11 @@ package main
 import (
 	"bufio"
 	"container/heap"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path"
 	"regexp"
 	"sort"
 	"strings"
@@ -30,7 +32,7 @@ func (pq PriorityQueue) Less(i, j int) bool {
 }
 
 func (pq PriorityQueue) Peek() interface{} {
-	return pq.cnts[len(pq.cnts)-1]
+	return pq.cnts[0]
 }
 
 func (pq PriorityQueue) Swap(i, j int) {
@@ -51,29 +53,47 @@ func (pq *PriorityQueue) Pop() interface{} {
 }
 
 const (
-	stop_file  = "./stop_words.txt"
-	words_file = "./pride-and-prejudice.txt"
+	stop_file  = "stop_words.txt"
+	words_file = "pride-and-prejudice.txt"
 )
 
 var set map[string]bool
 var freq map[string]int
+var AppPath string
 
 func main() {
+	flag.StringVar(&AppPath, "path", "path", "path")
+	flag.Parse()
+	fmt.Printf("App path: %s\n", AppPath)
+
 	set = make(map[string]bool)
 	freq = make(map[string]int)
 	initStopMap()
 	buildFrequency()
+
 	pq := &PriorityQueue{}
 	heap.Init(pq)
+	findBiggest(25, pq)
+
+	sort.Sort(pq)
+	for _, item := range pq.cnts {
+		fmt.Printf("%s %d\n", item.word, item.count)
+	}
+	f, _ := os.Create(words_file)
+	defer f.Close()
+	for i := 0; i < 25; i++ {
+		content := fmt.Sprintf("%s  -  %d\n", pq.cnts[24-i].word, pq.cnts[24-i].count)
+		f.Write([]byte(content))
+	}
+}
+
+func findBiggest(num int, pq *PriorityQueue) {
 	for key, val := range freq {
-		if val > 200 {
-			fmt.Printf(">200: %s\n", key)
-		}
 		pair := &Count{
 			count: val,
 			word:  key,
 		}
-		if pq.Len() < 25 {
+		if pq.Len() < num {
 			heap.Push(pq, pair)
 		} else {
 			item := pq.Peek()
@@ -83,14 +103,11 @@ func main() {
 			}
 		}
 	}
-
-	for _, item := range pq.cnts {
-		fmt.Printf("%s %d\n", item.word, item.count)
-	}
 }
 
 func buildFrequency() {
-	file, _ := ioutil.ReadFile(words_file)
+
+	file, _ := ioutil.ReadFile(path.Join(AppPath, words_file))
 
 	reg := regexp.MustCompile("[a-z]{2,}")
 	words := reg.FindAllString(strings.ToLower(string(file)), -1)
@@ -103,7 +120,10 @@ func buildFrequency() {
 }
 
 func initStopMap() {
-	file, _ := os.Open(stop_file)
+	file, err := os.Open(path.Join(AppPath, stop_file))
+	if err != nil {
+		fmt.Println(err)
+	}
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
