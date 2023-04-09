@@ -93,7 +93,7 @@ func buildFrequency() {
 	file, _ := ioutil.ReadFile(words_file)
 
 	reg := regexp.MustCompile("[a-z]{2,}")
-	words := reg.FindAllString(string(file), -1)
+	words := reg.FindAllString(strings.ToLower(string(file)), -1)
 
 	for _, word := range words {
 		if !set[word] {
