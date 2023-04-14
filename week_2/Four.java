@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class four {
+public class Four {
     static HashSet<String> stopSet = new HashSet<>();
 
     public static void main(String[]args) throws IOException {

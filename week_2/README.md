@@ -3,9 +3,9 @@
 Once in this folder, run the following commands to run the program:
 
 ```bash
-javac four.java
+javac Four.java
 
-java four ../pride-and-prejudice.txt
+java Four ../pride-and-prejudice.txt
 ```
 
 The program will print the result to the terminal. 
