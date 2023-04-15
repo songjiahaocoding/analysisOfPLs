@@ -1,5 +1,3 @@
-import javafx.util.Pair;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,28 +53,28 @@ public class Six {
     }
 
     public static void printPairs(HashMap<String, Integer> map ,int num){
-        PriorityQueue<Pair<String, Integer>> pq = new PriorityQueue<>(Comparator.comparingInt(Pair::getValue));
+        PriorityQueue<AbstractMap.SimpleEntry<String, Integer>> pq = new PriorityQueue<>(Comparator.comparingInt(AbstractMap.SimpleEntry::getValue));
 
         for (String str:map.keySet()){
             if (pq.size()<num){
-                pq.add(new Pair<>(str, map.get(str)));
+                pq.add(new AbstractMap.SimpleEntry<>(str, map.get(str)));
             } else {
                 if(map.get(str)>pq.peek().getValue()){
                     pq.poll();
-                    pq.add(new Pair<>(str, map.get(str)));
+                    pq.add(new AbstractMap.SimpleEntry<>(str, map.get(str)));
                 }
             }
         }
 
-        ArrayList<Pair<String, Integer>> list = new ArrayList<>();
+        ArrayList<AbstractMap.SimpleEntry<String, Integer>> list = new ArrayList<>();
         while(!pq.isEmpty()){
-            Pair<String, Integer> pair = pq.poll();
+            AbstractMap.SimpleEntry<String, Integer> pair = pq.poll();
             list.add(pair);
 
         }
 
         for (int i=list.size()-1;i>=0;i--){
-            Pair<String, Integer> pair = list.get(i);
+            AbstractMap.SimpleEntry<String, Integer> pair = list.get(i);
             System.out.println(pair.getKey()+" - "+pair.getValue());
         }
     }

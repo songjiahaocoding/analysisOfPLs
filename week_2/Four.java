@@ -1,8 +1,8 @@
-import javafx.util.Pair;
-
 import java.io.*;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Map;
 
 public class Four {
     static HashSet<String> stopSet = new HashSet<>();
@@ -25,7 +25,7 @@ public class Four {
         // Read the content of the novel
         FileInputStream fis = new FileInputStream(args[0]);
         BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-        ArrayList<Pair<String, Integer>> freqs = new ArrayList<>();
+        ArrayList<Map.Entry<String, Integer>> freqs = new ArrayList<>();
         String content = null;
         int cnt = 0;
         while((content = br.readLine())!=null){
@@ -43,18 +43,18 @@ public class Four {
                         if(!stopSet.contains(word)){
                             int index = 0;
                             for (;index<freqs.size();index++){
-                                Pair<String, Integer> pair = freqs.get(index);
+                                Map.Entry<String, Integer> pair = freqs.get(index);
                                 if (pair.getKey().equals(word)){
-                                    freqs.set(index, new Pair<>(word, pair.getValue()+1));
+                                    freqs.set(index, new AbstractMap.SimpleEntry<>(word, pair.getValue()+1));
                                     break;
                                 }
                             }
                             if (index>=freqs.size()){
-                                freqs.add(new Pair<>(word, 1));
+                                freqs.add(new AbstractMap.SimpleEntry<>(word, 1));
                             } else if (freqs.size()>1) {
                                 for (int j=index-1;j>=0;j--){
                                     if (freqs.get(index).getValue() > freqs.get(j).getValue()){
-                                        Pair<String, Integer> pair = freqs.get(j);
+                                        Map.Entry<String, Integer> pair = freqs.get(j);
                                         freqs.set(j, freqs.get(index));
                                         freqs.set(index, pair);
                                         index = j;
@@ -73,18 +73,18 @@ public class Four {
                 if(!stopSet.contains(word)){
                     int index = 0;
                     for (;index<freqs.size();index++){
-                        Pair<String, Integer> pair = freqs.get(index);
+                        Map.Entry<String, Integer> pair = freqs.get(index);
                         if (pair.getKey().equals(word)){
-                            freqs.set(index, new Pair<>(word, pair.getValue()+1));
+                            freqs.set(index, new AbstractMap.SimpleEntry<>(word, pair.getValue()+1));
                             break;
                         }
                     }
                     if (index>=freqs.size()){
-                        freqs.add(new Pair<>(word, 1));
+                        freqs.add(new AbstractMap.SimpleEntry<>(word, 1));
                     } else if (freqs.size()>1) {
                         for (int j=index-1;j>=0;j--){
                             if (freqs.get(index).getValue() > freqs.get(j).getValue()){
-                                Pair<String, Integer> pair = freqs.get(j);
+                                Map.Entry<String, Integer> pair = freqs.get(j);
                                 freqs.set(j, freqs.get(index));
                                 freqs.set(index, pair);
                                 index = j;
