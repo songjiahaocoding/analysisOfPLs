@@ -1,3 +1,13 @@
+## Week 3
+`cd week_3`
+
+Follow the instructions in the README.md file in the folder to run the programs.
+
+## Week 2
+`cd week_2`
+
+Follow the instructions in the README.md file in the folder to run the programs.
+
 ## Week 1
 `cd week_1`
 
