@@ -70,7 +70,6 @@ public class Six {
         while(!pq.isEmpty()){
             AbstractMap.SimpleEntry<String, Integer> pair = pq.poll();
             list.add(pair);
-
         }
 
         for (int i=list.size()-1;i>=0;i--){
