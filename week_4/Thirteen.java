@@ -55,14 +55,8 @@ class Thirteen {
     }
 
 
-    // // count frequency
-    // @SuppressWarnings("unchecked")
-    // private static void count(Map<String, Object> map, String word) {
-    // 	Map<String, Integer> wordFreqs = (Map<String, Integer>)map.get("freqs");
-    // 	wordFreqs.put(word, wordFreqs.getOrDefault(word, 0) + 1);
-    // 	map.put("freqs", wordFreqs);
-    // }
 
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) {
         // args[0] is the file path of input file
 
