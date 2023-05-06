@@ -3,35 +3,27 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class TwentyOne {
+public class TwentyTwo {
     static HashSet<String> stopSet = new HashSet<>();
     public static void main(String[] args) {
-        buildStopSets();
-        BufferedReader br = null;
         try {
-            br = readFile(args[0]);
-        } catch (FileNotFoundException e){
+            buildStopSets();
+            BufferedReader br = readFile(args[0]);
+            ArrayList<AbstractMap.SimpleEntry<String, Integer>> freqs = new ArrayList<>();
+            buildFrequencies(br, freqs);
+
+            for(int i=0;i<25;i++){
+                System.out.println(freqs.get(i).getKey()+" - "+freqs.get(i).getValue());
+            }
+        } catch (IOException e){
             e.printStackTrace();
-        }
-
-        ArrayList<AbstractMap.SimpleEntry<String, Integer>> freqs = new ArrayList<>();
-        buildFrequencies(br, freqs);
-
-        for(int i=0;i<25;i++){
-            System.out.println(freqs.get(i).getKey()+" - "+freqs.get(i).getValue());
         }
     }
 
-    private static void buildFrequencies(BufferedReader br, ArrayList<AbstractMap.SimpleEntry<String, Integer>> freqs) {
-        if(br==null)return;
+    private static void buildFrequencies(BufferedReader br, ArrayList<AbstractMap.SimpleEntry<String, Integer>> freqs) throws IOException {
         String content = null;
         int cnt = 0;
-        while (true) {
-            try {
-                if (!((content = br.readLine()) != null)) break;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        while ((content = br.readLine()) != null) {
             cnt++;
             int start = -1;
             int i = 0;
@@ -56,7 +48,6 @@ public class TwentyOne {
     }
 
     private static void addWord(ArrayList<AbstractMap.SimpleEntry<String, Integer>> freqs, String content, int start, int i) {
-        if(freqs == null)return;
         String word = content.substring(start, i).toLowerCase();
         if (!stopSet.contains(word)) {
             int index = 0;
@@ -83,23 +74,15 @@ public class TwentyOne {
     }
 
     private static BufferedReader readFile(String fileName) throws FileNotFoundException {
-        if("".equals(fileName)||fileName.length()==0)return null;
         FileInputStream fis = new FileInputStream(fileName);
         return new BufferedReader(new InputStreamReader(fis));
     }
 
-    private static void buildStopSets() {
-        InputStream is = null;
-        byte[] bytes = null;
-        try {
-            is = new FileInputStream("../stop_words.txt");
-            int len = is.available();
-            bytes = new byte[len];
-            is.read(bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(is==null)return;
+    private static void buildStopSets() throws IOException {
+        InputStream is = new FileInputStream("../stop_words.txt");
+        int len = is.available();
+        byte[] bytes = new byte[len];
+        is.read(bytes);
         String stopWords = new String(bytes);
         for (String s:stopWords.split(",")){
             stopSet.add(s);
