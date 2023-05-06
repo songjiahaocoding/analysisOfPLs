@@ -1,3 +1,8 @@
+## Wee 5
+`cd week_5`
+
+Follow the instructions in the README.md file in the folder to run the programs.
+
 ## Wee 4
 `cd week_4`
 
