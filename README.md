@@ -1,9 +1,12 @@
-## Wee 5
+## Week 6
+`cd week_6`
+
+## Week 5
 `cd week_5`
 
 Follow the instructions in the README.md file in the folder to run the programs.
 
-## Wee 4
+## Week 4
 `cd week_4`
 
 Follow the instructions in the README.md file in the folder to run the programs.
