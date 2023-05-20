@@ -1,3 +1,6 @@
+## Week 7
+`cd week_7`
+
 ## Week 6
 `cd week_6`
 
