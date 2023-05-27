@@ -55,13 +55,11 @@ public class Thirty {
         String path = "../stop_words.txt";
         StringBuilder sb = null;
         try {
-            BufferedReader buffReader = new BufferedReader(new FileReader(path));
-            String tmp;
-            while((tmp = buffReader.readLine()) != null){
-                String[] arr = tmp.split(",");
-                stopWords.addAll(Arrays.asList(arr));
+            String data = new String(Files.readAllBytes(Paths.get(path))).toLowerCase(Locale.ROOT);
+            String[] strs = data.split(",");
+            for(String str: strs){
+                stopWords.add(str);
             }
-            buffReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

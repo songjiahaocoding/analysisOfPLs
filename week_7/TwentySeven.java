@@ -6,6 +6,29 @@ import java.util.function.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+class Pair<K, V>{
+    public K key;
+    public V val;
+
+    public Pair() {
+        this.key = null;
+        this.val = null;
+    }
+
+    public Pair(K key, V value) {
+        this.key = key;
+        this.val = value;
+    }
+
+    public void setKey(K key) {
+        this.key = key;
+    }
+
+    public void setVal(V val) {
+        this.val = val;
+    }
+}
+
 @SuppressWarnings("unchecked")
 public class TwentySeven{
 
@@ -73,25 +96,3 @@ public class TwentySeven{
     }
 }
 
-class Pair<K, V>{
-    public K key;
-    public V val;
-
-    public Pair() {
-        this.key = null;
-        this.val = null;
-    }
-
-    public Pair(K key, V value) {
-        this.key = key;
-        this.val = value;
-    }
-
-    public void setKey(K key) {
-        this.key = key;
-    }
-
-    public void setVal(V val) {
-        this.val = val;
-    }
-}
