@@ -199,7 +199,7 @@ class WordFrequencyController extends WCApp {
 
     public WordFrequencyController(String pathToFile) {
         try {
-            Class dsManager = Class.forName("DataStorageManager");
+            Class dsManager = Class.forName("dataStorageManager");
             Class swManager = Class.forName("StopWordManager");
             Class wfManager = Class.forName("WordFrequencyManager");
 
